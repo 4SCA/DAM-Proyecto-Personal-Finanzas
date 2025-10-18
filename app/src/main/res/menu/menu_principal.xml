@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/itInicio"
+        android:title="Inicio"
+        android:icon="@drawable/ic_inicio"/>
+
+    <item
+        android:id="@+id/itHistorial"
+        android:title="Historial"
+        android:icon="@drawable/ic_historial"/>
+
+</menu>

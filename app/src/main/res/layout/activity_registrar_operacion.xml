@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrarOperacion">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar Operación"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingrese los datos necesarios"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:padding="10dp" />
+        <TextView
+            android:id="@+id/tvFechaOperacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha:"
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:textColor="#555555"/>
+
+        <TextView
+            android:id="@+id/tvTipoOperacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo operación:"
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:textColor="#555555" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilMonto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Monto">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietMonto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnAceptar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Aceptar"
+                style="@style/boton"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancelar"
+                style="@style/boton2"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
