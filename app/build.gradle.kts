@@ -41,7 +41,9 @@ android {
 
 dependencies {
     implementation(libs.androidx.drawerlayout)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.core.ktx)
+    implementation("com.airbnb.android:lottie:6.6.10")
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

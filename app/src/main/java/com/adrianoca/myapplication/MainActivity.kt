@@ -18,10 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.adrianoca.myapplication.data.AppDatabaseHelper
 import com.adrianoca.myapplication.entity.Usuario
 import com.adrianoca.myapplication.ui.theme.MyApplicationTheme
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
     var tvRegistro: TextView?=null
@@ -88,24 +93,30 @@ class MainActivity : ComponentActivity() {
         if(error){
             return
         }else{
-            Toast.makeText(this,"Validación correcta. Procesando Login...",Toast.LENGTH_SHORT).show()
-            var usuarioEncontrado : Usuario? = null
-            for(u in listaUsers){
-                if(u.correo == correo && u.clave == clave){
-                    usuarioEncontrado = u
-                    break
+            CoroutineScope(Dispatchers.Main).launch {
+                val usuario = withContext(Dispatchers.IO){
+                    val dbHelper = AppDatabaseHelper(this@MainActivity)
+                    val db = dbHelper.readableDatabase
+                    val cursor = db.rawQuery("SELECT * FROM usuario WHERE correo = ?",
+                        arrayOf(correo,clave)
+                    )
+                    val user = if(cursor.moveToFirst()){
+                        cursor.getString(cursor.getColumnIndexOrThrow("nombres"))
+                    }else null
+                    cursor.close()
+                    db.close()
+                    user
                 }
-            }
-            if (usuarioEncontrado != null){
-                Toast.makeText(this,"Bienvenido ${usuarioEncontrado.nombres}",Toast.LENGTH_SHORT).show()
-                val sharedPref = getSharedPreferences("usuario_pref", MODE_PRIVATE)
-                sharedPref.edit().putString("nombre_usuario", usuarioEncontrado.nombres).apply()
-                startActivity(Intent(this, InicioActivity::class.java))
-            }else{
-                Toast.makeText(this,"Usuario o contraseña incorrectos",Toast.LENGTH_SHORT).show()
+                if(usuario != null){
+                    Toast.makeText(this@MainActivity, "Bienvenido de nuevo ${usuario}", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(this@MainActivity,"Usuario o contraseña incorrectos",Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
+
     fun cambioActivity(activityDestino: Class<out Activity>) {
         val intent = Intent(this, activityDestino)
         startActivity(intent)
